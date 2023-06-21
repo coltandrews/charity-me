@@ -24,7 +24,7 @@ export default function DenseAppBar() {
             </Link>
           </IconButton>
           <Link style={{ textDecoration: "none" }} to={"/"}>
-            <Typography variant="h6" color="black" component="div">
+            <Typography variant="h5" color="white" component="div">
               Charity & Me
             </Typography>
           </Link>
