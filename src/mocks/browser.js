@@ -15,3 +15,5 @@ export const worker = setupWorker(
   return res(ctx.json(charlestonJazz)) // respond using a mocked JSON body
 })
 )
+
+// remember to hard code EIN in CharityCard.js to enable mock functionality 
