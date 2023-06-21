@@ -39,15 +39,16 @@ function CharityProfile(props) {
   }
 
   const getDescription = (code) => {
-    if (!code) {
+    if (!code || !ntee[code]) {
       return "Description not Available";
     }
     return ntee[code].description;
   };
   const getTitle = (code) => {
-    if (!code) {
+    if (!code || !ntee[code]) {
       return "Title not Available";
     }
+
     return ntee[code].title;
   };
   //** Return JSX

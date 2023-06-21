@@ -9,7 +9,7 @@ const prepare = () => {
   if (process.env.NODE_ENV === "development") {
     // prevents the mock server from working in a deployed, production env
     const { worker } = require("./mocks/browser.js");
-   return worker.start(); // Comment out this return statement to disable the mock api
+   // return worker.start(); // Comment out this return statement to disable the mock api
   }
   return Promise.resolve();
 };
