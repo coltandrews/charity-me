@@ -35,7 +35,7 @@ function CharityCard(props) {
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
           <Button size="small">Share</Button>
-          <Link to={"/charity"}>
+          <Link to={`/charity/${charityData.ein}`}>
             <Button size="small">Learn More</Button>
           </Link>
         </CardActions>

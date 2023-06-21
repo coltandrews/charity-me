@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/charity" element={<CharityProfile />} />
+          <Route path="/charity/:ein" element={<CharityProfile />} />
           <Route path="/me" element={<Profile />} />
         </Route>
       </Routes>
