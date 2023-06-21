@@ -12,7 +12,6 @@ function HomePage(props) {
 
   //** State Variables
   const [localCharities, setLocalCharities] = useState();
-  console.log(localCharities);
   const [city, setCity] = useState("charleston");
 
   //** Component Logic
@@ -21,8 +20,7 @@ function HomePage(props) {
     const getLocalCharities = async () => {
       try {
         const response = await fetch(
-          `https://projects.propublica.org/nonprofits/api/v2/search.json?q=charleston`,
-          {}
+          `https://projects.propublica.org/nonprofits/api/v2/search.json?q=${city}`
         );
         if (!response.ok) {
           throw new Error("failed to fetch data");
@@ -43,7 +41,7 @@ function HomePage(props) {
     <div style={{ backgroundColor: "wheat" }}>
       <form style={{ margin: "10px" }}>
         <label>
-          Where are you located?
+          What city are you in?
           <input
             type="text"
             value={city}
