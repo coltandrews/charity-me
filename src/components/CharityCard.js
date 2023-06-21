@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 
 //** Setup (define helper functions and variables here)
 
@@ -34,7 +35,7 @@ function CharityCard(props) {
           <Typography variant="body2" color="text.secondary"></Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button size="small">Share</Button>
+          <Button size="small"><AddCircleOutlineRoundedIcon/></Button>
           <Link to={"/charity"}>
             <Button size="small">Learn More</Button>
           </Link>
