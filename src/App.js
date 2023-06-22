@@ -1,9 +1,10 @@
-import {Route, Routes} from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./components/HomePage";
 import CharityProfile from "./components/CharityProfile";
 import Profile from "./components/Profile";
-import Layout from './components/Layout';
+import Layout from "./components/Layout";
+import { useState } from "react";
 
 function App() {
   return (
