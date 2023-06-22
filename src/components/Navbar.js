@@ -13,21 +13,21 @@ export default function DenseAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <Link style={{ textDecoration: "none", color: "white" }} to={"/me"}>
-              <AccountCircleIcon />
-            </Link>
-          </IconButton>
           <Link style={{ textDecoration: "none" }} to={"/"}>
             <Typography variant="h5" color="white" component="div">
               Charity & Me
             </Typography>
           </Link>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2, marginLeft: 140 }}
+          >
+            <Link style={{ textDecoration: "none", color: "white" }} to={"/me"}>
+              <AccountCircleIcon />
+            </Link>
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>

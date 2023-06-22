@@ -15,6 +15,35 @@ function HomePage(props) {
   const [city, setCity] = useState("charleston");
 
   //** Component Logic
+  const [favorites, setFavorites] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("favorites");
+    const initialValue = JSON.parse(saved);
+    return initialValue || [];
+  });
+  const isFavorite = (charityData) => {
+    return favorites.some(fav => fav.ein === charityData.ein)
+  }
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const addFavorite = (charityData) => {
+    const newFavorites = [...favorites];
+    if (!newFavorites.some((fav) => fav.ein === charityData.ein)) {
+      newFavorites.push({
+        name: charityData.name,
+        ein: charityData.ein,
+        city: charityData.city,
+        state: charityData.state,
+      });
+      setFavorites(newFavorites);
+    }
+  };
+  const removeFavorite = (ein) => {
+    const newFavorites = favorites.filter((fav) => fav.ein != ein);
+    setFavorites(newFavorites);
+  };
 
   useEffect(() => {
     const getLocalCharities = async () => {
@@ -38,7 +67,7 @@ function HomePage(props) {
     return <div>loading...</div>;
   }
   return (
-    <div style={{ backgroundColor: "wheat" }}>
+    <div style={{ backgroundColor: "whitesmoke" }}>
       <form style={{ margin: "10px" }}>
         <label>
           What city are you in?
@@ -55,7 +84,7 @@ function HomePage(props) {
           display: "flex",
           flexWrap: "wrap",
           gap: "15px",
-          backgroundColor: "gray",
+          backgroundColor: "inherit",
           margin: "20px",
           padding: "10px",
         }}
@@ -64,7 +93,12 @@ function HomePage(props) {
           {localCharities.map((charityData) => {
             return (
               <Grid item xs={3}>
-                <CharityCard charityData={charityData} />
+                <CharityCard
+                  charityData={charityData}
+                  addFavorite={addFavorite}
+                  isFavorite={isFavorite}
+                  removeFavorite={removeFavorite}
+                />
               </Grid>
             );
           })}

@@ -1,49 +1,27 @@
 //** Import Statements
 import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 
-import { useState } from "react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 //** Setup (define helper functions and variables here)
 
 function CharityCard(props) {
   //** Destructure Props
-  const { charityData } = props;
+  const { charityData, addFavorite, isFavorite, removeFavorite } = props;
 
-  const setFavorites = (favorites) => {
-    // getting stored value
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  };
-
-  const getFavorites = () => {
-    // getting stored value
-    const saved = localStorage.getItem("favorites");
-    if (!saved) {
-      return [];
-    }
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
-  };
+  const [imFavorite, setImFavorite] = useState(isFavorite(charityData));
   //** State Variables
 
   //** Component Logic
-  const addToList = () => {
-    const favorites = getFavorites();
-    favorites.push({
-      name: charityData.name,
-      ein: charityData.ein,
-      city: charityData.city,
-      state: charityData.state,
-    });
-    setFavorites(favorites);
-    console.log(favorites);
-  };
+
   //** Return JSX
   return (
     <div>
@@ -60,9 +38,28 @@ function CharityCard(props) {
           <Typography variant="body2" color="text.secondary"></Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button onClick={addToList} size="small">
-            <AddCircleOutlineRoundedIcon />
-          </Button>
+          {imFavorite && (
+            <Button
+              onClick={() => {
+                removeFavorite(charityData);
+                setImFavorite(false);
+              }}
+              size="small"
+            >
+              <FavoriteIcon />
+            </Button>
+          )}
+          {!imFavorite && (
+            <Button
+              onClick={() => {
+                addFavorite(charityData);
+                setImFavorite(true);
+              }}
+              size="small"
+            >
+              <FavoriteBorderIcon />
+            </Button>
+          )}
           <Link to={`/charity/${charityData.ein}`}>
             <Button size="small">Learn More</Button>
           </Link>

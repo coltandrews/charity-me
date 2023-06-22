@@ -9,44 +9,25 @@ import Typography from "@mui/material/Typography";
 
 function FavoritesCard(props) {
   //** Destructure Props
-  const { charityData } = props;
+  const { favorite, removeFavorite } = props;
   //** State Variables
 
   //** Component Logic
-
-  const getFavorites = () => {
-    // getting stored value
-    const saved = localStorage.getItem("favorites");
-    if (!saved) {
-      return [];
-    }
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
-  };
-  if (!charityData) {
-    return <div>loading...</div>;
-  }
-
-  const removeFromList = () => {
-    let favorites = getFavorites();
-    favorites = favorites.filter(favorite => favorite.ein != charityData.ein);
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    console.log(favorites)
-  };
-
+if(!favorite) {
+  return <div>Loading...</div>
+}
   //** Return JSX
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Card sx={{ maxHeight: 200 }}>
         <CardContent>
           <Typography sx={{}} gutterBottom variant="h6" component="div">
-            <h3>{charityData.name}</h3>
+            <h3>{favorite.name}</h3>
           </Typography>
           <Typography variant="body2" color="text.secondary"></Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button onClick={removeFromList} size="small">
+          <Button onClick={() => removeFavorite(favorite.ein)} size="small">
             <RemoveCircleOutlineIcon />
           </Button>
         </CardActions>
