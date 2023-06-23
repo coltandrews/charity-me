@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import { Grid, Paper } from "@mui/material";
 
+
+
 //** Setup (define helper functions and variables here)
 
 function HomePage(props) {
@@ -12,7 +14,9 @@ function HomePage(props) {
 
   //** State Variables
   const [localCharities, setLocalCharities] = useState();
-  const [city, setCity] = useState("charleston");
+  console.log(localCharities)
+  const [city, setCity] = useState('');
+  const [input, setInput] = useState('');
 
   //** Component Logic
   const [favorites, setFavorites] = useState(() => {
@@ -45,11 +49,17 @@ function HomePage(props) {
     setFavorites(newFavorites);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setCity(input)
+    // else do nothing, the state will update and display the error to the user
+  }
+
   useEffect(() => {
     const getLocalCharities = async () => {
       try {
         const response = await fetch(
-          `https://projects.propublica.org/nonprofits/api/v2/search.json?q=${city}`
+          `https://corsproxy.io/?https://projects.propublica.org/nonprofits/api/v2/search.json?q=${city}`
         );
         if (!response.ok) {
           throw new Error("failed to fetch data");
@@ -61,22 +71,23 @@ function HomePage(props) {
       }
     };
     getLocalCharities();
-  }, []);
+  }, [city]);
   //** Return JSX
   if (!localCharities) {
     return <div>loading...</div>;
   }
   return (
     <div style={{ backgroundColor: "whitesmoke" }}>
-      <form style={{ margin: "10px" }}>
+      <form style={{ margin: "10px" }} onSubmit={handleSubmit}>
         <label>
           What city are you in?
           <input
             type="text"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
             style={{ margin: "10px" }}
           />
+          <input type="submit" value="Submit" />
         </label>
       </form>
       <Paper

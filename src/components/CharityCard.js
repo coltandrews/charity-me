@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import ntee from '../data/ntee.json'
+
 //** Setup (define helper functions and variables here)
 
 function CharityCard(props) {
@@ -21,7 +23,19 @@ function CharityCard(props) {
   //** State Variables
 
   //** Component Logic
+  const getDescription = (code) => {
+    if (!code || !ntee[code]) {
+      return "Description not Available";
+    }
+    return ntee[code].description;
+  };
+  const getTitle = (code) => {
+    if (!code || !ntee[code]) {
+      return <i>Category Unavailable</i>;
+    }
 
+    return ntee[code].title;
+  };
   //** Return JSX
   return (
     <div>
@@ -35,7 +49,9 @@ function CharityCard(props) {
           >
             {charityData.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary"></Typography>
+          <Typography variant="body2" color="text.secondary">
+            {getTitle(charityData.ntee_code)}
+          </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "center" }}>
           {imFavorite && (
